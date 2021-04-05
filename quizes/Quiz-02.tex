@@ -1,0 +1,25 @@
+\documentclass[11pt]{article}
+
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{times,psfrag,epsf,epsfig,graphics,graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\title{CSCI 338: Quiz 2}
+\author{River Kelly}
+\date{Friday, March 12}
+
+\begin{document}
+\maketitle
+\section*{Problem 1}
+Based on what we covered on March 5 and 8 regarding the Turing machines, list at least 3 differences between a Turing machine and PDA.
+
+\begin{enumerate}
+    \item A PDA uses a stack, which means it is restricted to reading/writing to only the top element of the stack (LIFO). Whereas the Turning machine head may access any position on an infinite tape.
+    \item There are some models a PDA cannot describe, while a Turing machine can do everything that a real computer can do. For example, PDA are disadvantaged, and cannot work for: \newline $a^{m}b^{m+n}c^{n} \mid m \geq 0, n \geq 0$ 
+    \item A PDA has the condition $r_{m} \in F$ such that, the accept state occurs at the input end. The Turning machine has special state for rejecting or accepting to take effect immediately.
+    \item The formal definition of a PDA contains no explicit mechanism to allow the PDA to test for an empty stack. In many models of the Turning machine, a symbols is used at the end of the tape to allow testing for the end.
+\end{enumerate}
+
+\end{document}
+

@@ -1,0 +1,65 @@
+\documentclass[11pt]{article}
+
+%Don't change any thing before \begin{document}
+%In fact if you use sth fancy, you might need
+%to add more packages, or macros.
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{times,psfrag,epsf,epsfig,graphics,graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\setlength{\parskip}{1em}
+
+\title{CSCI 338: Quiz~5}
+\author{River Kelly}
+\date{Friday, April 2}
+
+\begin{document}
+\maketitle
+
+\section*{The Problem}
+
+\noindent
+Peter has a couple of crystal balls and he would like to test how hard they are.
+He finds a stair with n steps: $1,2,\ldots n$.
+He wants to find the smallest step $i$ such that his ball will break if it is dropped from the top
+of the stair.
+(In other words, the ball will not break for all steps $j < i$ and it will break for all steps $j \geq i$.)
+
+\begin{enumerate}
+    \item If Peter can only use exactly one ball, how can he design a fast algorithm to find $i$?
+    \item If Peter can only use exactly two bails, how can he design a fast algorithm to find $i$?
+\end{enumerate}
+
+\noindent
+In both cases, once a ball is broken Peter can't use a replacement.
+
+\newpage
+\section*{Problem 1}
+On March 24, we covered the crystal ball problem.
+
+\noindent
+In this quiz, you are asked to solve the second problem, i.e., if Peter has exactly two balls, how could he find the smallest step $i$ (efficiently, in better than $O(n)$ time) such that his ball would break at step $i$ (but not at step $i$ - 1).
+Note that once both balls are broken Peter can't use any replacement.
+
+\subsection*{Response}
+
+Lets design a fast algorithm in which Peter has exactly two balls to determine the floor in which a crystal ball will break. We know that using one ball, Peter is \textit{not} allowed to make any "\textit{jumps}" (i.e. he must start from the top, and check every step consecutively). With two balls, we can now make the assumption that Peter may \textit{jump} to a given step, therefore eliminating the necessity to check previous steps.
+
+\noindent
+Now that Peter may jump between step, he is now \textit{skipping} some steps. Lets call the number of steps Peter skips $S$. Lets assign some other variable names to the other given properties of the problem. Lets call the number of steps in the problem $N$, the number of possible throws, or crystal balls, $K$. We are told that there are one-hundred steps, $N = 100$, and two crystal balls, $K = 2$. But how many steps should Peter skip?
+
+\noindent
+If Peter were smart, he would know that a binary search can split the problem in two. There are 100 steps, so Peter jumps to step 50. By doing so, Peter has effectively reduced the number of steps to check by half. Dropping the ball from the half-way point, or the $50^{th}$ step (i.e $S=50$). There are two outcomes: The crystal ball will break or it will \textit{not} break. If the ball breaks, Peter now knows that he must check steps 1-49, and the complexity is reduced to $N/2$. But there is a problem, what if the ball does not break. Then, Peter must go all the way back to the beginning and use a linear search from the top. The first ball was not helpful and the second ball is used basically like having one ball to begin with. Therefore, we have potentially reduced the best possible outcome, but the worst case is still linear, $O(n)$.
+
+\noindent
+Choosing step 50 as Peter's jump, or \textit{skip}, was arbitrary and did not optimize the potential for using two balls. Let $f(S)$ be the number of drops required in the worse-case.
+$$f(S) = \dfrac{N}{S} + S - 1$$
+To minimize this function, take the derivative:
+$$\dfrac{df}{dS} = 1 - \dfrac{N}{S^{2}}$$
+Then by setting $\dfrac{df}{dS}$ equal to zero:
+$$S = \sqrt{N}$$
+Given that $N = 100$, we get an optimal skip $S = 10$. By optimizing the skip, Peter will now use the first ball to limit the \textit{search space} starting at the skip. Once the search space has been limited, then Peter will use the second ball to do a linear search of the remaining space.
+
+
+\end{document}

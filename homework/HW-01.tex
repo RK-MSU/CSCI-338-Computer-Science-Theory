@@ -1,0 +1,170 @@
+\documentclass[11pt]{article}
+
+%Don't change any thing before \begin{document}
+%In fact if you use sth fancy, you might need
+%to add more packages, or macros.
+\usepackage{amssymb,amsmath}
+\usepackage{amsthm}
+\usepackage{times,psfrag,epsf,epsfig,graphics,graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\title{CSCI 338: Assignment~1~(7 points)}
+\author{River Kelly}
+\date{January 28, 2021}
+%\date{Feb 3, 2021}
+
+\begin{document}
+\maketitle
+
+%When writing up your solution, comment out the following until you reach Problem 1.
+% \noindent This assignment is due on {\bf Thursday, Jan 28, 8:00pm}. You will need to use Latex to generate a single pdf file and upload it under {\em Assignment 1} on D2L. There will be a penalty for not using Latex (to finish the assignment). This is {\bf not} a group-assignment, so you must finish the assignment by yourself.
+
+\newpage
+\section*{Problem 1}
+Prove that $1^{4} + 2^{4} +3^{4} + \cdots + n^{4} = \frac{n(n+1)(2n+1)(3n^{2}+3n-1)}{30}$ .
+\begin{proof}
+Let $f(n)$ represent, as described above, the summation of the series of natural numbers to the power of 4. Denoted as follows:
+
+\begin{align*}
+    f(n) & = \sum_{i=1}^{n}{i^4} \\
+    & = 1^{4} + 2^{4} +3^{4} + \cdots + n^{4} \\
+    & = \frac{n(n+1)(2n+1)(3n^{2}+3n-1)}{30}
+\end{align*}
+
+\noindent
+Given $f(n)$, when $n=1$,
+\[f(1) = \sum_{i=1}^{1}{i^4} = 1^4 = 1,\]
+\[\frac{1(1+1)(2(1)+1)(3(1)^{2}+3(1)-1)}{30} = \frac{1(2)(3)(5)}{30} = \frac{30}{30} = 1\]
+
+\noindent
+So, when $n = 1$, it is true such that $f(n) = \frac{n(n+1)(2n+1)(3n^{2}+3n-1)}{30}$. Now, let us assume that this is also true for $n \le k$. Then, by definition,
+\newline
+
+\begin{align*}
+    f(k+1) & = \underline{1^{4} + 2^{4} +3^{4} + \cdots + k^{4}} + (k+1)^4 \\
+    & = \frac{k(k+1)(2k+1)(3k^{2}+3k-1)}{30} + (k+1)^4 \\
+    & = \frac{(k+1)}{30} [ k(2k+1)(3k^{2} +3k - 1) + 30(k + 1)^{3} ] \\
+    & = \frac{(k+1)}{30} [ ( 2k^{2} + k)(3k^{2} + 3k -1) + 30(k^{3} + 3k^{2} + 3k +1) ] \\
+    & = \frac{(k+1)}{30} [ 6k^{4} + 39k^{3} + 91k^{2} + 89k + 30 ] \\
+    & = \frac{1}{30} [ 6k^{5} + 45k^{4} + 130k^{3} + 180k^{2} + 119k + 1 ] \\
+    & = \frac{1}{30} [ (2k^{3} + 9k^{2} + 13k +6)( 3k^{2} + 9k + 5) ] \\
+    & = \frac{1}{30} [ ( k^{2} + 3k + 2 )( 2k + 3 )( 3k^{2} + 9k + 5) ] \\
+    & = \frac{1}{30} [ ( k^{2} + 3k + 2 )( 2k + 3 )( 3k^{2} + 9k + 5) ] \\
+    & = \frac{1}{30} [ (k+1)(k+2)( 2k + 3 )( 3k^{2} + 6k + 3 + 3k + 3 - 1) ] \\
+    & = \frac{1}{30} [ (k+1)((k+1)+1)( 2(k+1)+1 )(3(k+1)^{2} + 3(k+1) - 1) ] \\
+    & = \frac{(k+1)((k+1)+1)( 2(k+1)+1 )(3(k+1)^{2} + 3(k+1) - 1)}{30} \\
+\end{align*}
+\noindent By substituting $n$ back in for $k+1$, we will get back $f(n)$;
+\begin{align*}
+    f(k+1) & = \frac{(k+1)((k+1)+1)( 2(k+1)+1 )(3(k+1)^{2} + 3(k+1) - 1)}{30} \\
+    & = \frac{1}{30}[(\underline{k+1})((\underline{k+1})+1)( 2(\underline{k+1})+1 )(3(\underline{k+1})^{2} + 3(\underline{k+1}) - 1)] \\
+    & = \frac{1}{30}[(\underline{n})((\underline{n})+1)( 2(\underline{n})+1 )(3(\underline{n})^{2} + 3(\underline{n}) - 1)] \\
+    & = \frac{n(n+1)(2n+1)(3n^{2}+3n-1)}{30} \\
+    & = f(n)
+\end{align*}
+
+\noindent $\therefore f(n) = \sum_{i=1}^{n}{i^4} = 1^{4} + 2^{4} +3^{4} + \cdots + n^{4} = \frac{n(n+1)(2n+1)(3n^{2}+3n-1)}{30}$
+
+\end{proof}
+
+
+\section*{Problem 2}
+Given a planar graph $P=(V,E)$, we have Euler's formula: $|V|+|F|-|E|=2$, where $F$ is the set of faces of $P$ and $E$ is the set of edges of $P$. Let $|V|=n$, where $V$ is the set of vertices of $P$. Prove that $|F|$ is at most $2n$.
+\begin{proof}
+For a planar graph $P$ with $v$ vertices and $f$ faces, it must be true that $|F|$ is at most $2n$.
+\newline
+
+\noindent
+If $P$ is a forest or a tree, then there exists only one face. Such that, \[|F| = 1 \le 2\]
+
+\noindent
+Considering all other planar graphs that are NOT either a forest or a tree, from the perspective of each individual face, the sum of the number of edges in $P$ will be a total of $2|E|$. Each face in $P$ is also required to have at least 3 edges, denoted as $3|F|$. Since each face must have at least 3 edges and the total number of edges is at most 2 times the number of faces, this can be described as such,
+\[3|F| \le  2|E| = \frac{3}{2} |F| \le |E|\]
+
+\noindent
+Given Euler's formula,
+
+\begin{align*}
+    |V| + |F| - |E| = 2 & \iff n + |F| - |E| = 2 \\
+    & \iff n + |F| - \frac{3}{2}|F| \geq 2 \\
+    & \iff - \frac{1}{2}|F| \geq 2 - n \\
+    & \iff |F| \le 2n - 4 \\
+    |V| + |F| - |E| = 2 & \iff |F| \le 2n
+\end{align*}
+
+\noindent
+$\therefore$ If Euler's formula is true, then it must be true that $|F| \le 2$.
+
+\end{proof}
+
+\newpage
+\section*{Problem 3}
+Prove that in any simple graph there is a path from any vertex of odd degree to some other vertex of odd degree.
+
+\begin{proof}
+A simple graph is a graph such that has no pair of vertices $a,b$ has more than one single edge connecting $a$ and $b$. Given a simple graph $G = (V,E)$, there are two possible scenarios; either $G$ is connected or is not connected. Provided that $G$ is a non-connected graph, it is the union of a connected graph. Thus, it is only necessary to provide evidence of proof for the connected case.
+\newline
+
+\noindent
+Given $G$, a simple graph that is connected, suppose there exists at least one vertex $v$ such that $v \in V$ and $degree(v)$ is odd. Recall that in a connected graph, there is a path $p$ from any vertex $v,u$ such that $v \in V$ and $u \in V$, and that the total sum of the degree of $G$ must be even.
+\newline
+
+\noindent
+$\therefore$ Since such a path $p$ must exist between two vertices $v,u$ in a connected graph $G$, if vertex $v$ has an odd degree there must be another vertex of odd degree because the total sum of the degree of $G$ must be even.
+\end{proof}
+
+\newpage
+\section*{Problem 4}
+A fully binary tree $T$ is a tree such that all internal nodes have two children. Prove that a fully binary tree with $n$ internal nodes in total has $n + 1$ leaves.
+\begin{proof}
+Provided a binary tree $T$, such that $T_{n}$ represents the number of nodes in the tree. Consider tree $T_{0}$, a binary tree with no internal nodes. Thus, $T_{0} = 1$ and the base case holds true such as described as follows:
+\begin{align*}
+    T_{n} & = 2n + 1 \\
+    T_{0} & = 2(0) + 1\\
+    & = 1    
+\end{align*}
+
+\noindent
+Now, let us assume that for some number of internal nodes $k$ such that, $k \in \{0\} \cup Z^{+}$, and $T_{n} = 2n + 1$ for all $n \le k$.
+
+\begin{align*}
+    T_{n} & = 2n + 1 \\
+    2\underline{n} + 1 & = 2(\underline{k+1}) + 1 \\
+    & = 2k + 2 + 1 \\
+    & = 2(k+1) + 1\\
+    T_{k+1} & = 2k + 2
+\end{align*}
+
+\noindent
+$\therefore$ Since $T_{k+1}$ holds, it must be true that a fully binary tree $T$ with $n$ internal nodes has a total of $2n+1$.
+\end{proof}
+
+\newpage
+\section*{Problem 5}
+Given an undirected graph $G=(V,E)$, the breadth-first-search starting at $v\in V$ ($bfs(v)$ for short) is to generate a shortest path tree starting at vertex $v\in V$. The diameter of $G$ is the longest of all shortest paths $\delta(u,v), u,v\in V$.
+\newline
+
+When $G$ is a tree, the following algorithm is proposed to compute the diameter of $G$.
+\newline
+
+1. Run $bfs(w), w\in V$, and compute the vertex $x\in V$ furthest from $w$.
+
+2. Run $bfs(x)$ and compute the vertex $y\in V$ furthest from $x$.
+
+3. Return $\delta(x,y)$ as the diameter of $G$.
+\newline
+
+Prove that this algorithm is correct; i.e., $\delta(x,y)$ is in fact the
+longest among all the shortest paths between $u,v\in V$.
+
+\begin{proof}
+Suppose vertices $a,b$ have the longest shortest path such that $bfs(b) = n$ and $n = a$.
+Assume that for some vertex $m$ such that $m \in V$ and $bfs(m) = n$ and $n \neq a$.
+Given $\delta(m,a) \geq \delta(m,b)$ and $bfs(m) = n$ where $n \neq a$, then $\delta(m,n) \geq \delta(m,a)$ must be true. Recalling that $\delta(a,b)$ is the diameter, but a longer diameter is found by $m$ and $a$. Thus, we have a contradiction.
+\newline
+
+\noindent
+$\therefore$ Since $bfs(a)$ must provide endpoint $b$ on the longest shortest path, the algorithm above must compute the diameter.
+\end{proof}
+\end{document}

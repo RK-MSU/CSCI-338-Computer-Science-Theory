@@ -1,0 +1,229 @@
+\documentclass[11pt]{article}
+
+%Don't change any thing before \begin{document}
+%In fact if you use sth fancy, you might need
+%to add more packages, or macros.
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{times,psfrag,epsf,epsfig,graphics,graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\setlength{\parskip}{1em}
+
+\title{CSCI 338: Assignment~4}
+\author{River Kelly}
+\date{Thursday, April 1}
+
+\begin{document}
+\maketitle
+
+\newpage
+\section*{Problem 1}
+
+Let ${\cal B}$ be the set of all infinite sequences over $\{a,b\}$. Show that
+${\cal B}$ is uncountable, using a proof by diagonalization.
+
+\begin{proof}
+To prove that ${\cal B}$ is uncountable using diagonalization, we must show, by contradiction, that no correspondence exists between $\cal N$ and $\cal B$.
+Suppose that a correspondence $f$ existed between $\cal N$ and $\cal B$.
+For such correspondence to exist, $f$ must pair all the members of $\cal N$ with all the members of $\cal B$.
+We must show that $f$ fails to work as it should by finding an $x$ in $\cal B$ that is not paired with anything in $\cal N$, a contradiction.
+
+\noindent
+Assuming that ${\cal B}$ is countable, the elements of ${\cal B}$ may be ordered as $b_{1}, b_{2}, b_{3}, \ldots b_{n}$, and a correspondence $f$ exists between $\cal N$ and $\cal B$, the following table shows a few values of a hypothetical correspondence.
+
+%\Large
+\begin{center}
+\begin{tabular}{ c | c }
+ $n$ & $f(n)$ \\
+ \hline 
+ 1 & \underline{a}bbab$\ldots$ \\
+ 2 & b\underline{b}aab$\ldots$ \\
+ 3 & ab\underline{a}ba$\ldots$ \\
+ 4 & aaa\underline{b}a$\ldots$ \\
+ $\vdots$ & $\vdots$
+\end{tabular}
+\end{center}
+%\normalsize
+
+\noindent
+We can now construct the desired $x$ by taking the elements of the diagonal and complementing them so that to ensure that $x \neq f(n)$ for any $n$.
+Continuing in this way down the diagonal of the table for $f$, we obtain all the digits of $x$.
+Note that underlined values in the table above represent the construction for the inputs of $x$. Furthermore, the value of $x$ would be 
+%\Large
+$$x = \text{baba}\ldots$$
+%\normalsize
+But $x \in \cal B$, so then some $b_{i} = x$. But by the construction of $x$ is different from $b_{i}$ at the $i^{th}$ spot. A contradiction.
+
+\noindent
+$\therefore$ $\cal B$ is not countable. 
+\end{proof}
+
+\newpage
+\section*{Problem 2}
+
+Let $T=\{(i,j,k)|i,j,k\in{\cal N}\}$. Show that $T$ is countable.
+
+\begin{proof}
+To prove that $T$ is countable, we must show that there exists some correspondence $f$ between $\cal N$ and $T$. To do this, we will construct a list which shows a few values of a hypothetical correspondence $f$ between $\cal N$ and $T$.
+
+\begin{center}
+\begin{tabular}{ c | c }
+ $n$ & $f(n)$ \\
+ \hline 
+ 1 & $(0,0,0)$ \\
+ 2 & $(1,0,0)$ \\
+ 3 & $(0,1,0)$ \\
+ 4 & $(0,0,1)$ \\
+ 5 & $(2,0,0)$ \\
+ 6 & $(0,2,0)$ \\
+ $\vdots$ & $\vdots$
+\end{tabular}
+\end{center}
+
+\noindent
+For each tuple $(i,j,k)$, let $s$ be the sum such that $s = i+j+k$ and $s \in \cal N$. This implies that we can enumerate all tuples in $T$ because there are a finite number of tuples whose sum is equal to $s$. This shows the existence of a one-to-one correspondence between $\cal N$ and $\cal T$.
+
+\noindent
+$\therefore$ $T$ must be countable.
+\end{proof}
+
+\newpage
+\section*{Problem 3}
+
+Let $INFINITE_{PDA}=\{<M>|M$ is a PDA and $L(M)$ is an infinite language$\}$.
+Show that $INFINITE_{PDA}$ is decidable.
+
+\begin{proof}
+To prove that $INFINITE_{PDA}$ is decidable, we will construct a Turning Machine that decides it. Let $M$ denote such a Turning Machine, we can the convert $M$ into a Context Free Grammar (CFG) - lets call $N$.
+The CFG $N$ can be converted into Chomsky Normal Form, called $N'$, and we can check if the there exists a derivation $A \Rightarrow uAv$ where $u,v \in \Sigma$.
+
+\noindent
+There is an infinite language $L(M)$ if $A \Rightarrow uAv$ is a derivation in $N'$, and there is not an infinite language $L(M)$ is there is not a derivation $A \Rightarrow uAv$ in $N'$. The Turning Machine $M$, which decides $INFINITE_{PDA}$ as follows:
+
+\noindent
+$M = $ "On input $<M>$ a PDA:
+\newline
+\noindent
+1. Convert $M$ into an equivalent CFG $N$.
+\newline
+\noindent
+2. Convert $N$ into an equivalent CFG $N'$ in Chomsky Normal Form.
+\newline
+\noindent
+3. If the derivation $A \Rightarrow uAv$ is included in $N'$, accept, else, reject."
+
+\noindent
+$\therefore$  $INFINITE_{PDA}$ is decidable.
+\end{proof}
+
+% /* ------------ the above contents have been covered by March 12 ------------ */
+
+\newpage
+\section*{Problem 4}
+
+Let $\Sigma=\{a,b\}$. Define the following language {\em ODD}$_{TM}$:
+
+{\em ODD}$_{TM}=\{ <M>|M$ is a TM and $L(M)$ contains only strings of odd length $\}$.
+
+\noindent
+Prove that {\em ODD}$_{TM}$ is undecidable.
+
+\begin{proof}
+To prove {\em ODD}$_{TM}$ is undecidable, we will show that $A_{TM}$ reduces to {\em ODD}$_{TM}$. Assume that {\em ODD}$_{TM}$ is decidable with Turning Machine $R$. Let $< M , w >$ be the input into $A_{TM}$.
+
+\noindent
+First, we will construct Turning Machine $S$ on input $< M , w >$:
+
+\noindent
+$S = $ "On input $x$:\newline
+1. If $|x|$ is odd, accept. \newline
+2. If $|x|$ is even, run $M$ on $w$. If $M$ accepts, accept. Otherwise, reject."
+
+\noindent
+Now we can construct a TM to run $R$ on $< M , w >$ which decides $A_{TM}$;
+
+\noindent
+$H = $ "On input $< M , w >$:\newline
+1. Run $R$ on $< M , w >$.\newline
+2. If $R$ accepts, accept. If $R$ rejects, reject."
+
+\noindent But $A_{TM}$ is undecidable, a contradiction.
+
+\noindent $\therefore$ {\em ODD}$_{TM}$ is undecidable.
+\end{proof}
+
+
+\newpage
+\section*{Problem 5}
+
+Show that $EQ_{CFG}$ is undecidable.
+\begin{proof}
+To prove that $EQ_{CFG}$ is undecidable, we will construct a TM $S$ to decide $ALL_{CFG}$.
+
+\noindent
+Recall that,
+$$ EQ_{CFG} = \{ \left< G_{1}, G_{2} \right> \mid G_{1} \text{ and } G_{2} \text{ are CFGs and } L(G_{1}) = L(G_{2})\} $$
+and the $ALL_{CFG}$ will reduce to  $EQ_{CGF}$ where, 
+$$ ALL_{CGF} = \{ \left< G \right> \mid G \text{ is a CFG and } L(G) = \Sigma^{*} \}$$
+Let TM $R$ decide $EQ_{CFG}$ and the details of TM $S$ be:
+
+\noindent
+$S = $ "On input $G$ a CFG:\newline
+1. Let $G_{0}$ be the CFG such that $L(G_{0}) = \Sigma^{*}$\newline
+2. Run $R$ on input $\left< G , G_{0} \right>$.\newline
+3. If $R$ accepts, accept. Otherwise reject."
+
+\noindent
+$ALL_{CFG}$ is undecidable, and TM $S$ decides $ALL_{CFG}$, a contradiction.
+
+\noindent
+$\therefore$ $EQ_{CGF}$ must also be undecidable.
+\end{proof}
+
+\newpage
+\section*{Problem 6}
+
+Show that $EQ_{CFG}$ is co-Turing-recognizable.
+
+\begin{proof}
+To prove that $EQ_{CFG}$ is co-Turing-recognizable we will construct a TM $S$ that recognizes $\overline{EQ_{CFG}}$.
+
+\noindent
+Recall that a language is co-Turing-recognizable if, and only if, its complement is a Turing-recognizable language.
+$$ \overline{EQ_{CFG}} = \{ \left< G_{1}, G_{2} \right> \mid G_{1} \text{ and } G_{2} \text{ are CFGs and } L(G_{1}) \neq L(G_{2})\}$$
+
+\noindent
+The details of TM $S$ that recognizes $\overline{EQ_{CFG}}$:
+
+\noindent
+$S = $ "On input $\left< G_{1}, G_{2} \right>$, where $G_{1}$ and $G_{2}$ are CFGs:\newline
+1. If at least one CFG, either $G_{1}$ and $G_{2}$, is invalid, accept.\newline
+2. Convert the equivalent Chomsky Normal Form CFGs of $G_{1}$ and $G_{2}$, $G'_{1}$ and $G'_{2}$ respectively.\newline
+3. Repeat step $4$ for $i = 1,2,3\ldots$\newline
+4. Test $G'_{1}$ and $G'_{2}$ to generate a unique string $s \in \Sigma^{*}$\newline
+If exactly one is valid and one is invalid, accept."
+
+\noindent
+$\therefore$ TM $S$ recognizes $\overline{EQ_{CFG}}$, thus $EQ_{CFG}$ is co-Turing-recognizable.
+\end{proof}
+
+\newpage
+\section*{Problem 7}
+
+Find a match in the following instance of the Post Correspondence Problem.
+$$  \left\{
+	\left[ \dfrac{ab}{abab} \right], 
+	\left[ \dfrac{b}{a} \right], 
+	\left[ \dfrac{aba}{b} \right],
+	\left[ \dfrac{aa}{a} \right] \right\} $$
+
+\begin{proof}
+A matching result can be found/made/created by a combination of all the upper strings and all of the lower strings such that reading both of the top and bottom are the same. 
+
+\noindent
+Consider the collection as a list of dominos numbered 1-4. There is a match given the sequence 4,4,2 and 1. The match is show as:
+$$ \left[ \dfrac{aa}{a} \right] , \left[ \dfrac{aa}{a} \right] , \left[ \dfrac{b}{a} \right] , \left[ \dfrac{ab}{abab} \right] = \dfrac{aaaabab}{aaaabab}$$
+\end{proof}
+
+\end{document}
