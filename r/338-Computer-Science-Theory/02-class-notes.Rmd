@@ -1,0 +1,187 @@
+# Class Notes
+
+## Week 1
+
+### Jan 11 - Introduction & Latex
+
+...
+
+### Jan 13 - Review of Discrete Math I
+
+* Sets
+* Proper Set
+* Multi-Sets
+  * repeated numbers are allowed
+* Natural Numbers: the positive integers (whole numbers) 1, 2, 3, etc., and sometimes zero as well.
+* Set Operations
+  * Union
+    * Multi-Sets....
+  * Intersection - 
+  * Complementation - Have to define the universe
+* Sequesnces and Tuples
+  * ...graphs
+  * Sequence - a list of *ordered* objects
+    * $(1,3,5,7) \neq (1,5,3,7)$
+  * Finite Sequence - also called *tuples*
+    * $5$-tuple: $<5,4,3,2,1>$
+      * contains 5 elements(objects)
+    * $2$-tuple are also called *pairs*
+    * Graphs - pair of verticies and edges ($G=<V,E>$)
+      * $V$ - is the set of vertices
+      * $E$ - is the set of edges, each being a pair
+
+**Theroems & Proofs**
+
+* Theorem - is a true mathematical statement
+  * Mergesort...
+* Proof - A convincing logical arguement that a statement is true
+  * You can prove a statement by providing a proof.
+  * You can disprove a statement by providing a counterexample. (by proof)
+  * Proof Methods
+    * Direct Proof - extract most important property and try to show the reader
+    * By Contradiction - Assume something is false, under that assumption lead to some contradition such that the assumption is false
+    * Induction - 
+    * Construction - Only holds for existing (something) in statement
+  * NO SUCH PROOF **by example**
+
+
+De Morgan's Laws describe how mathematical statements and concepts are related through their opposites. In set theory, De Morgan's Laws relate the intersection and union of sets through complements. In propositional logic, De Morgan's Laws relate conjunctions and disjunctions of propositions through negation.
+
+
+
+
+  
+
+### Jan 15 - Review of Discrete Math II
+
+**Sequences and Tuples**
+
+* Cartesian product (and/or cross product of A and B) - set of all pairs (x,y) such that x $\in$ A and $y \in B$ 
+  
+**Relations and Functions**: a function is nothing but mapping (maps some inputs to outputs)
+
+* D - domain, set of all possible inputs
+* R- range, set of all possible outputs
+  * If all elements in $R$ could be used, then the function is said to bt *onto* $R$.
+    * Absolute $\mid . \mid$- $Z \rightarrow Z$ - is *not* onto $Z$ as $-5$ is never used in the range.
+      * abs(-5) = 5
+    * Addition - $Z \times Z \rightarrow Z$ - is onto $Z$
+    * Square $Z \rightarrow Z$ - is not onto $Z$, as 3 is never used in the range
+      * $3^{2} \rightarrow 9, 4^{2} \rightarrow 16$
+
+**Predicate/property**: a function whose range is $\{TRUE, FALSE\}$
+
+* Goldbach's Conjecture:....
+  * For every even integer that is atleast 4, it can be written as the summation of 2 prime numbers
+    * 24 = 11 + 13
+    * 50 = 3 + 47
+  * need a proof...
+* $k$-array: a property whose domain is a set of $k$-tuples
+  * ...
+  * in practice, k = 2 typically
+
+
+**Equivalence Relation**: A special relation $R$ which is
+
+1. reflexive,...
+2. symmetric,...
+3. transitive,...
+
+**Graphs**: pair which contains verticies and edges
+
+* Subgraph: A graph $G$ is a subgraph of $H$ if the nodes/edges of $G$ are subsets of $H$
+  * Enumerating all subgraphs would be costly
+  * Connectness: A *path* is a sequence of nodes connected by edges
+    * A simple is a path that has no repeated nodes.
+    * A path is a *cycle* if it starts and ends with the same node.
+    * **Simple Cycle** is one that doesn't repeat any node, excpet at the end.
+    * **Hamiltonian Cycle** a simple cycle that visits all of the nodes exactly once (except the start and ending node)
+      * Hard to find (mistake at any step, may eliminate any possible solution)
+    * **Tree**: a connected graph with no cycle
+
+
+**Irrational**:....
+
+
+## Week 2
+
+### Jan 20 - Review of Discrete Math III
+
+* A simple graph with n verticies and n edges must contain a cycle.
+
+
+
+# Jan 22: Planar graph. Finite state automata
+
+Lecture Slides: [Jan 22 - Planar Graph - Finite State Automata.pdf](assets/lecture-slides/Jan 22 - Planar Graph - Finite State Automata.pdf){target="_blank"}
+
+
+```{definition planar-graph, name="Planar Graph"}
+A graph whose vertices and edges can be drawn on the plane with no edge crossings.
+```
+
+`r newLine()`
+`r newLine()`
+```{definition eulers-formula, name="Euler's Formula"}
+- $| V | + | F | - | E | = 2$, or
+- The number of vertices (V) plus the number of faces (F) minus the number of edges (E) is equal to 2.
+- Prove by induction
+```
+`r newLine()`
+
+
+
+## Logic and Boolean Logic
+
+
+- **Conjunction**(and) - $\land$
+  - "$p \land q$" is read "$p$ and $q$"
+- **Disjunction**(or) - $\lor$
+  - "$p \lor q$" is read "$p$ or $q$"
+- **Negation**(not) - $\lnot$
+  - "$\lnot p$" is read "not $p$"
+- **Exclusice Or**(and or) - XOR / $\oplus$
+  - "$p \oplus q$" or "$p$ XOR $q$" means "$p$ or $q$ but not both" or "$p$ or $q$ and not both $p$ and $q$"
+- **Logical Consequence** - $\rightarrow$
+  - "$\rightarrow$" is read as "implies"
+- **Logical Equivalence** - $\leftrightarrow$
+  - "$\leftrightarrow$" is read as "equal to"
+
+
+In the real world:
+
+- $\lnot ( P \land Q ) $ means "I don't want $P$ and $Q$ to be selected".
+- This is equal to "$\lnot P \lor \lnot Q$"
+
+More Examples:
+
+- $P \lor Q \Leftrightarrow \lnot ( \lnot P \land \lnot Q )$
+- $P \rightarrow Q \Leftrightarrow \lnot P \lor Q$
+- $p \leftrightarrow Q \Leftrightarrow (p \rightarrow P) \land (Q \rightarrow p )$
+  - How to disprove $p \rightarrow Q$? (Let's say, $p =$ "I am happy", and $Q =$"it snows.")
+    - *Show*: $p$ sometimes implies $\lnot Q$.
+    
+(Do exersice 02 - problem 01)
+
+
+### Distributive Law
+
+- $P \land ( Q \lor R) \Leftrightarrow (P \land Q) \lor (P \land R)$
+- $P \lor (Q \land R) \Leftrightarrow ( P \lor Q ) \land ( P \lor R )$
+
+
+
+## Regular Languages (Ch.1 )
+
+See definition of a Finite Automata \@ref(def:finite-automaton)
+
+
+
+# Jan 25: Finite Automata (cont.)
+
+Lecture Slides: [Jan 25 - Finite State Automata (Count.).pdf](assets/lecture-slides/Jan 25 - Finite State Automata (Count.).pdf){target="_blank"}
+
+
+
+
+

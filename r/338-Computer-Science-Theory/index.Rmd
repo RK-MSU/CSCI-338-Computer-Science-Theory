@@ -1,0 +1,69 @@
+--- 
+title: "Computer Science Theory"
+subtitle: "CSCI-338 @ Montana State University"
+author: "River Kelly"
+date: "Spring 2021" #"`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+# description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+
+# Welcome
+
+**Textbook**: Introduction to the Theory of Computation, Michael Sipser, Third Edition
+
+```{r copy-course-web-page-dir, echo=FALSE, include=FALSE}
+
+# check if docs directory exists, if not, create it
+# if(!dir.exists("docs")) {
+#   dir.create("docs")
+# }
+
+# check if docs/assets directory exists, if not, create it
+# if(!dir.exists("docs/assets")) {
+#   dir.create("docs/assets")
+# }
+
+# check if docs/assets directory exists, if so, delete it. We are about to copy all of its contents in the next step
+# if(dir.exists("docs/assets/course-web-page-mirror")) {
+#   unlink("docs/assets/course-web-page-mirror", recursive = TRUE)
+# }
+
+# copy course web page to to docs/assets dir
+# file.copy("assets/course-web-page-mirror", "docs/assets", recursive = TRUE)
+```
+
+[Course Web Page](assets/course-web-page-mirror/index.html)
+
+<details>
+<summary>wget command fetch course web page mirror</summary>
+<pre>
+wget -m -r -np -N -k -p -nd -nH -E --no-check-certificate -e robots=off -U 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.6) Gecko/20070802 SeaMonkey/1.1.4' https://www.cs.montana.edu/bhz/classes/spring-2021/csci338/index.html
+</pre>
+</details>
+
+
+`r newLine()`
+`r newLine()`
+`r newLine()`
+
+**Homework**
+
+| HW | Overall Feedback | Score |
+| :-- | :-- | :-- |
+| [HW-01](assets/homework/HW-01/River_Kelly_CSCI_338_HW_01[SUBMISSION].pdf) - [Solutions](assets/homework/HW-01/HW-01[SOLUTIONS].pdf) | Q4: the inductive step is wrong. -0.5 | 6.5 / 7 - 92.86 % |
+| [HW-02](assets/homework/HW-02/CSCI_338_HW_02_River_Kelly[SUBMISSION].pdf) - [Solutions](assets/homework/HW-02/HW-02[SOLUTIONS].pdf) | - | - |
+
+
+## Test 2
+
+__When__: Apr 05, 11am-12:20pm
+
+__Contents__: Everything covered since Test 1 until Mar 24, i.e., CFL + decidable/undecidable languages.`r newLine()`
+You should use class notes, HW-3,4 and quiz solutions as preparation materials.
+
+I will give a detailed overview early next week.
+

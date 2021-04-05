@@ -1,0 +1,112 @@
+\documentclass[11pt]{article}
+
+%Don't change any thing before \begin{document}
+%In fact if you use sth fancy, you might need
+%to add more packages, or macros.
+\usepackage{amssymb,amsmath}
+\usepackage{times,psfrag,epsf,epsfig,graphics,graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+\begin{document}
+\date{}
+%\date{Feb 3, 2021}
+
+\title{CSCI 338: Assignment~1~(7 points)}
+
+%\author{Your Name Here}
+
+
+\maketitle
+
+%When writing up your solution, comment out the following until you reach Problem 1.
+\noindent
+This assignment is due on {\bf Thursday, Jan 28, 8:00pm}. You will need to
+use Latex to generate a single pdf file and upload it under {\em Assignment 1}
+on D2L. There will be a penalty for not using Latex (to finish the assignment).
+This is {\bf not} a group-assignment, so you must finish the assignment by
+yourself.
+
+\section*{Problem 1}
+
+Prove that $1^4+2^4+3^4+\cdots+n^4=\frac{n(n+1)(2n+1)(3n^2+3n-1)}{30}$.
+\newline
+
+%\noindent
+%{\bf Proof:} ....
+%....
+%$\hfill \Box$
+%\newline
+
+\section*{Problem 2}
+
+Given a planar graph $P=(V,E)$, we have Euler's formula:
+$|V|+|F|-|E|=2$, where $F$ is the set of faces of $P$ and $E$ is the
+set of edges of $P$.
+Let $|V|=n$, where $V$ is the set of vertices of $P$.
+Prove that $|F|$ is at most $2n$.
+\newline
+
+%\noindent
+%{\bf Proof:} ....
+%....
+%$\hfill \Box$
+%\newline
+
+\section*{Problem 3}
+
+Prove that in any simple graph there is a path from any vertex of odd degree
+to some other vertex of odd degree.
+\newline
+
+%\noindent
+%{\bf Proof:} ....
+%....
+%$\hfill \Box$
+%\newline
+
+\section*{Problem 4}
+
+A fully binary tree $T$ is a tree such that all internal nodes have
+two children. Prove that a fully binary tree with $n$ internal nodes
+in total has $n+1$ leaves.
+\newline
+
+%\noindent
+%{\bf Proof:} ....
+%....
+%draw/include a figure if necessary.
+%$\hfill \Box$
+%\newline
+
+\section*{Problem 5}
+
+Given an undirected graph $G=(V,E)$, the breadth-first-search starting at $v\in V$
+($bfs(v)$ for short) is to generate a shortest path tree starting at vertex
+$v\in V$. The diameter of $G$ is the longest of all shortest paths $\delta(u,v), u,v\in V$.
+\newline
+
+When $G$ is a tree, the following algorithm is proposed to compute the
+diameter of $G$.
+\newline
+
+1. Run $bfs(w), w\in V$, and compute the vertex $x\in V$ furthest from $w$.
+
+2. Run $bfs(x)$ and compute the vertex $y\in V$ furthest from $x$.
+
+3. Return $\delta(x,y)$ as the diameter of $G$.
+\newline
+
+Prove that this algorithm is correct; i.e., $\delta(x,y)$ is in fact the
+longest among all the shortest paths between $u,v\in V$.
+\newline
+
+%\noindent
+%{\bf Proof:} ....
+%....
+%draw/include a figure if necessary.
+%$\hfill \Box$
+
+\end{document}
+

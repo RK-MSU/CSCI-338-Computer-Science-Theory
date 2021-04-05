@@ -1,0 +1,35 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+
+
+
+
+
+div.definition, div.theorem {
+  border: solid 1px;
+  border-color: rgba(0,0,0,0.25);
+  border-radius: 5px;
+  padding: 15px;
+  background-color: rgba(0,0,0,0.11);
+  position: relative;
+}
+
+
+div.definition span.definition > strong {
+  display: block !important;
+}
+
+

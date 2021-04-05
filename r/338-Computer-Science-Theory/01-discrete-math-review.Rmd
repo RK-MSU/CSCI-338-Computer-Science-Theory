@@ -1,0 +1,346 @@
+# Discrete Math Review
+
+## Speaking Mathematically
+
+### Variables
+
+
+(ref:def-universal-conditional-statement) A ***universal conditional statement*** is a statement that is both universal and conditional.`r paste(newLine(),newLine())`Here is an example: For all animals $a$, if $a$ is a dog, then $a$ is a mammal.
+
+A variable is sometimes thought of as a mathematical "John Doe" because:
+
+1. You imagine that it has one or more values but you don’t know what they are, or
+2. You want whatever you say about it to be equally true for all elements in a given set, and so you don’t want to be restricted to considering only a particular, concrete value for it.
+
+#### Some Important Kinds of Mathematical Statements
+
+Three of the most important kinds of mathematical sentences.
+
+* A **universal statement** says that a certain property is true for all elements in a set.
+  * For example: *All positive numbers are greater than zero*.
+* A **conditional statement** says that if one thing is true then some other thing also has to be true.
+  * For example: *If 378 is divisible by 18, then 378 is divisible by 6*.
+* Given a property that may or may not be true, an **existential statement** says that
+there is at least one thing for which the property is true.
+  * For example: *There is a prime number that is even*.
+
+##### Universal Conditional Statements
+
+```{definition, echo=TRUE, label="definition-universal-conditional-statement", name="Universal Conditional Statement"}
+(ref:def-universal-conditional-statement)
+```
+
+One of the most important facts about universal conditional statements is that they can be rewritten in ways that make them appear to be purely universal or purely conditional.
+
+##### Universal Existential Statements
+
+A statement that is universal because its first part says that a certain property is true for all objects of a given type, and it is existential because its second part asserts the existence of something. (p.31)
+
+* ***Example***: Every real number has an additive inverse.
+
+
+##### Existential Universal Statements
+
+A statement that is existential because its first part asserts that a certain object exists and is universal because its second part says that the object satisfies a certain property for all things of a certain kind. (p.32)
+
+* ***Ex***: There is a positive integer that is less than or equal to every positive integer:
+
+
+
+
+
+
+
+
+
+### Language of Sets
+
+The **axiom of extension** says that a set is completely determined by what its elements are—not the order in which they might be listed or the fact that some elements might be listed more than once.
+
+
+| Symbol | Set |
+|--------|-----|
+| $R$ | set of all real numbers |
+| $Z$ | set of all integers |
+| $Q$ | set of all rational numbers, or quotients of integers |
+| $N$ | set of all natural numbers, or nonnegative integers |
+
+
+#### Set-Builder Notation
+
+
+Let $S$ denote a set and let $P(x)$ be a property that elements of $S$ may or may not satisfy. We may define a new set to be **the set of all elements x in S such that P(x) is true**. (pg.36)
+
+We denote this set as follows:
+$$
+\{x \in S \mid P(x)\}
+$$
+
+###### Subsets 
+
+A basic relation between sets is that of subset. (p.37)
+
+If A and B are sets, then A is called a **subset** of B, written $A \subseteq B$, if, and only if, every element of A is also an element of B.
+
+\begin{align*}
+A \subseteq B &\hspace{10pt}\text{ means that }&\text{ For all elements }x,\text{ if }x \in A\text{ the }x \in B
+\end{align*}
+
+* The phrases A *is contained in* B and B *contains* A are alternative ways of saying that A is a subset of B.
+* It follows from the definition of subset that for a set A not to be a subset of a set B means that there is at least one element of A that is not an element of B.
+  * $A \nsubseteq B$ means that, There is at least one element $x$ such that $x \in A$ and $x \notin B$.
+
+**Proper Subset**: Given A and B are sets, every element of A is in B but there is at least one element of B that is not in A.
+
+
+#### Cartesian Products (p.38)
+
+A major stumbling block was how to use sets to define an ordered pair because the definition of a set is unaffected by the order in which its elements are listed. For example, {a, b} and {b, a} represent the same set, whereas in an ordered pair we want to be able to indicate which element comes first.
+
+* an ordered pair is a set of the form
+
+ $$\{\{a\},\{a,b\}\}$$
+ 
+* If $a \neq b$, then the two sets are distinct and $a$ is in both sets whereas $b$ is not.
+* If $a = b$, then we can simply say that $a$ is both the first and the second element of the pair.
+  * In this case the set that defines the ordered pair becomes {{a}, {a, a}}, which equals {{a}}.
+ 
+**Ordered Pair (Notation)**:  Given elements a and b, the symbol (a, b) denotes the ordered pair consisting of a and b together with the specification that a is the first element of the pair and b is the second element. Two ordered pairs (a, b) and (c, d) are equal if, and only if, a = c and b = d.
+
+* $(a,b) = (c,d)$ means that $a = c$ and  $b = d$
+
+**Definition**: *Cartesian product* - Given sets A and B, the Cartesian product of A and B, denoted A × B and read “A cross B,” is the set of all ordered pairs (a, b), where a is in A and b is in B. Symbolically:
+
+$$
+A \times B = \{(a,b) \mid a \in A \text{ and } b \in B\}
+$$
+
+
+
+
+
+
+
+
+
+### The Language of Relations and Functions
+
+**Definition**: *Relation* - Let A and B be sets. A relation R from A to B is a subset of A × B. Given an ordered pair (x, y) in A × B, x is related to y by R, written x R y, if, and only if, (x, y) is in R. The set A is called the domain of R and the set B is called its co-domain.
+
+#### Arrow Diagram of a Relation
+
+Suppose R is a relation from a set A to a set B. The arrow diagram for R is obtained as follows:
+
+* Represent the elements of A as points in one region and the elements of B as points in another region.
+* For each x in A and y in B, draw an arrow from x to y if, and only if, x is related to y by R. Symbolically:
+  * Draw an arrow from x to y<br>if, and only if, x R y<br>if, and only if, (x, y) $\in$ R
+
+
+##### Functions
+
+**Definition**: - A function F from a set A to a set B is a relation with domain A and co-domain B that satisfies the following two properties:
+
+1. For every element x in A, there is an element y in B such that $(x, y) \in F$.
+2. For all elements x in A and y and z in B,
+$$
+\text{if }(x, y) \in F\text{ and }(x, z) \in F\text{, then }y = z.
+$$
+
+Properties (1) and (2) can be stated less formally as follows: A relation F from A to B is a function if, and only if:
+
+1. Every element of A is the first element of an ordered pair of F.
+2. No two distinct ordered pairs in F have the same first element.
+
+
+* Because of the definition of function, each element in the domain corresponds to one and only one element of the co-domain.
+  * More precisely, if F is a function from a set A to a set B, then given any element x in A, property (1) from the function definition guarantees that there is at least one element of B that is related to x by F and property (2) guarantees that there is at most one such element. This makes it possible to give the element that corresponds to x a special name.
+
+**Notation**: If A and B are sets and F is a function from A to B, then given any element x in A, the unique element in B that is related to x by F is denoted F(x), which is read “F of x.”
+
+
+* **Squaring Function** - $f$ from **R** to **R** is defined by the formula $f(x) = x^{2}$ for all real numbers $x$.
+  * This means that no matter what real number input is substituted for x, the output of f will be the square of that number.
+  * Symbolically: $f : x \rightarrow x^{2}$
+* **Successor Function**: $g$ from **Z** to **Z** is defined by the formula $g(n) = n + 1$. 
+  * no matter what integer is substituted for n, the output of g will be that number plus one
+  * Symbolically: $g : n \rightarrow n + 1$
+* **Constant Function**: is the function $h$ from **Q** to **Z** defined by the formula $h(r) = 2$ for all rational numbers *r*.
+  * In other words, no matter what the input, the output is always 2.
+  * Symbolically: $h : r \rightarrow 2$
+
+
+Note:
+
+* A function is an entity in its own right.
+* A relation is a subset of a Cartesian product and a function is a special kind of relation.
+* Specifically, if f and g are functions from a set A to a set B, then
+
+\begin{align*}
+f = {(x, y) \in A \times B \mid y = f (x)} 
+&\hspace{15pt}\text{ and }&
+g = {(x, y) \in A \times B \mid y = g(x)}
+\end{align*}
+
+
+* It follows that
+  * f equals g, written f = g, if, and only if, f (x) = g(x) for all x in A.
+
+
+
+
+
+
+## The Logic of Compound Statements
+
+
+
+
+
+
+### Logical Form and Logical Equivalence
+
+* The central concept of deductive logic is the concept of argument form. An argument is a sequence of statements aimed at demonstrating the truth of an assertion. The assertion at the end of the sequence is called the conclusion, and the preceding statements are called premises.
+* Arguments are valid in the sense that if their premises are true, then their conclusions must also be true.
+
+
+
+```{r}
+arg_title <- txt.bold("Argument 1")
+body_text <- "If the program syntax is faulty or if program execution results in division by zero, then the computer will generate an error message. Therefore, if the computer does not generate an error message, then the program syntax is correct and program execution does not result in division by zero."
+arg_body.one <- paste('> ',arg_title, newLine(), body_text)
+
+arg_title <- txt.bold("Argument 2")
+body_text <- "If $x$ is a real number such that $x < -2$ or $x > 2$, then $x^{2} > 4$. Therefore, if $x^{2} \\ngtr 4$, then $x \\nless -2$ and $x \\ngtr 2$."
+arg_body.two <- paste('> ',arg_title, newLine(), body_text)
+```
+`r arg_body.one`
+
+`r arg_body.two`
+
+`r newLine()`
+
+Then the *common logical form* of both the previous arguments is as follows:
+
+`r txt.indent("If $p$ or $q$, then $r$.")`
+`r txt.indent("Therefore, if not $r$, then not $p$ and not $q$.")`
+
+
+#### Statements
+
+A **statement** (or **proposition**) is a sentence that is true or false but not both.
+
+For example, “Two plus two equals four” and “Two plus two equals five” are both statements, the first because it is true and the second because it is false.
+
+
+“He is a college student” depends on the reference for the pronoun he. For some values of he the sentence is true; for others it is false. If the sentence were preceded by other sentences that made the pronoun’s reference clear, then the sentence would be a statement. Considered on its own, however, the sentence is neither true nor false, and so it is not a statement.
+
+
+“x + y > 0” is not a statement because for some values of x and y the sentence is true, whereas for others it is false. For instance, if x = 1 and y = 2, the sentence is true; if x = −1 and y = 0, the sentence is false.
+
+
+#### Compound Statements
+
+
+| Symbol | Meaning | Sentence | Reading | Other |
+| :-: | :-: | :-: | :-: | :-- |
+| $\sim$ | *not* | $\sim p$ | "not $p$" | called the **negation of $p$**|
+| $\land$ | *and* | $p \land q$ | "$p$ and $q$" | called the **conjunction of $p$ and $q$** |
+| $\lor$ | *or* | $p \lor q$ | "$p$ or $q$" | called the **disjunction of $p$ and $q$** | 
+
+
+**Order of Operations**
+
+1. $\sim$
+2. $\land$ and $\lor$ are coequal
+
+
+
+\begin{align*}
+p \text{ but } q &\hspace{10pt}\text{ means }& p \text{ and } q \\
+\text{neither }p\text{ nor }q &\hspace{10pt}\text{ means }& \sim p\text{ and } \sim q
+\end{align*}
+
+
+#### Truth Values
+
+*The negation of a statement is a statement that exactly expresses what it would mean for the statement to be false.*
+
+**Definition**: If $p$ is a statement variable, *the negation** of $p$ is “not $p$” or “It is not the case that $p$” and is denoted $\sim p$. It has opposite truth value from $p:$ if $p$ is true, $\sim p$ is false; if $p$ is false, $\sim p$ is true.
+
+The truth values for negation are summarized in a *truth table*.
+
+| $p$ | $\sim p$ |
+| :-: | :-: |
+| T | F |
+| F | T |
+
+
+**Definition**: If $p$ and $q$ are statement variables, the **conjunction** of $p$ and $q$ is “ $p$ and $q$,” denoted $p \land q$. It is true when, and only when, both $p$ and $q$ are true. If either $p$ or $q$ is false, or if both are false, $p \land q$ is false. (See page 55 for truth tables)
+
+
+**Definition**: If $p$ and $q$ are statement variables, the **disjunction** of $p$ and $q$ is “ $p$ or $q$,” denoted $p \or q$. It is true when either $p$ is true, or $q$ is true, or both $p$ and $q$ are true; it is false only when both $p$ and $q$ are false. (see page 55 for truth tables)
+
+
+#### Logical Equivalence
+
+
+1. Dogs bark and cats meow, and
+2. Cats meow and dogs bark
+
+
+* Two *statement forms* are called **logically equivalent** if, and only if, they have identical truth values for each possible substitution of statements for their statement variables. The logical equivalence of statement forms $P$ and $Q$ is denoted by writing $P \equiv Q$.
+* Two *statements* are called **logically equivalent** if, and only if, they have logically equivalent forms when identical component statement variables are used to replace identical component statements.
+
+**Testing Whether Two Statement Forms P and Q Are Logically Equivalent**
+
+* Construct a truth table with one column for the truth values of P and another column for the truth values of Q.
+* Check each combination of truth values of the statement variables to see whether the truth value of P is the same as the truth value of Q.
+  * If in each row the truth value of P is the same as the truth value of Q, then P and Q are logically equivalent.
+  * If in some row P has a different truth value from Q, then P and Q are not logically equivalent.
+
+#### De Morgan’s Laws
+
+For the statement “John is tall and Jim is redheaded” to be true, both components must be true. So for the statement to be false, one or both components must be false. Thus the negation can be written as “John is not tall or Jim is not redheaded.”
+
+
+* The negation of an and statement is logically equivalent to the or statement in which each component is negated.
+* The negation of an or statement is logically equivalent to the and statement in which each component is negated.
+
+$$
+\sim ( p \land q) \equiv \sim p \lor \sim q
+$$
+
+$$
+\\sim ( p \lor q) \equiv \sim p \land \sim q
+$$
+
+#### Tautologies and Contradictions
+
+
+* A **tautology** is a statement form that is always true regardless of the truth values of the individual statements substituted for its statement variables. A statement whose form is a tautology is a **tautological statement**.
+* A **contradication** is a statement form that is always false regardless of the truth values of the individual statements substituted for its statement variables. A statement whose form is a contradication is a **contradictory statement**.
+
+
+According to this definition, the truth of a tautological statement and the falsity of a contradictory statement are due to the logical structure of the statements themselves and are independent of the meanings of the statements.
+
+
+#### Summary of Logical Equivalences
+
+Given any statement variables $p$, $q$, and $r$, a tautology **t** and a contradiction **c**, the following logical equivalences hold.
+
+(See page 63)
+
+
+
+
+
+
+### Conditional Statements
+
+* **Definition**: If $p$ and $q$ are statement variables, the **conditional** of $q$ by $p$ is “If $p$ then $q$” or “ $p$ implies $q$” and is denoted $p \rightarrow q$. It is false when $p$ is true and $q$ is false; otherwise it is true. We call $p$ the **hypothesis** (or **antecedent**) of the conditional and $q$ the **conclusion** (or **consequent**).
+  * A conditional statement that is true by virtue of the fact that its hypothesis is false is often called **vacuously true** or **true by default**.
+    * Thus the statement “If you show up for work Monday morning, then you will get the job” is vacuously true if you do not show up for work Monday morning. In general, when the “if” part of an if-then statement is false, the statement as a whole is said to be true, regardless of whether the conclusion is true or false.
+
+In expressions that include $\rightarrow$ as well as other logical operators such as $\land$, $\lor$, and $\sim$, the order of operations is that $\rightarrow$ is performed last. Thus, according to the specification of order of operations, $\sim$ is performed first, then $\land$ and $\lor$, and finally $\rightarrow$.
+
+

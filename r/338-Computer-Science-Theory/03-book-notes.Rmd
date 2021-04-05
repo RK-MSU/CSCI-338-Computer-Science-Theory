@@ -1,0 +1,378 @@
+# Ch.1 - Regular Languages
+
+In beginning to describe the mathematical theory of finite automatan, we do so in the abstract, without reference to any particular application.
+
+## Finite Automata
+
+[See p.55](`r book_url`#page=55)
+
+(ref:finite-automaton-m1-cap) A finite automaton called $M_{1}$ that has three states
+
+```{r finite-automaton-m1, fig.cap='(ref:finite-automaton-m1-cap)', echo = FALSE}
+knitr::include_graphics(rep("assets/images/1.4-state-diagram-finite-automaton.png"))
+```
+
+This is called a ***state diagram***. It has three ***states***, labeled q1 , q2 ,
+and q3 . The ***start state***, q1 , is indicated by the arrow pointing at it from nowhere.
+The ***accept state***, q2 , is the one with a double circle. The arrows going from one
+state to another are called ***transitions***.
+
+The output is either ***accept*** or ***reject***. The output is
+*accept* if it is now in an accept state and *reject* if it is not.
+
+
+For example, when we feed the input string 1101 into the machine:
+
+1. Start in state $q_{1}$.
+2. Read 1, follow transition from $q_{1}$ to $q_{2}$.
+3. Read 1, follow transition from $q_{2}$ to $q_{2}$.
+4. Read 0, follow transition from $q_{2}$ to $q_{3}$.
+5. Read 1, follow transition from $q_{3}$ to $q_{2}$.
+6. *Accept* because $M_{1}$ is in an accept state $q_{2}$ at the end of the input.
+
+
+### Formal Definition of a Finite Automaton
+
+[See p.59](`r book_url`#page=59){target="_blank"}
+
+
+A finite automaton has several parts.
+
+- It has a set of states and rules for going from one state to another, depending on the input symbol.
+- It has an input alphabet that indicates the allowed input symbols.
+- It has a start state and a set of accept states.
+
+
+The formal definition says that a finite automaton is a list of those
+five objects: set of states, input alphabet, rules for moving, start state, and accept
+states.
+
+
+We use something called a ***transition function***, frequently denoted $\delta$, to define the rules for moving.
+If the finite automaton has an arrow from a state x
+to a state y labeled with the input symbol 1, that means that if the automaton is
+in state x when it reads $a_{1}$, it then moves to state y. We can indicate the same
+thing with the transition function by saying that $\delta(x, 1) = y$.
+
+
+```{definition finite-automaton, name="Finite Automaton"}
+A **finite automaton** is a 5-tuple $(Q, \Sigma, \delta, q_{0}, F)$, where
+
+1. $Q$ is a finite set called the **states**,
+2. $\Sigma$ is a finite set called the **alphabet**,
+3. $\delta : Q \times \Sigma \rightarrow Q$ is the **transition function**,
+4. $q_{0} \in Q$ is the **start state**, and
+5. $F \subseteq Q$ is the set of **accept states**.
+```
+
+The formal definition precisely describes what we mean by a finite automaton.
+
+- $F$ can be set to an empty set ($\emptyset$)
+- $\delta$ specifies exactly one next state for each possible combination of a state and an input symbol. Exactly one transition arrow exits every state for each possible input symbol.
+
+We can describe $M_{1}$ \@ref(fig:finite-automaton-m1) formally by writing $M_{1} = (Q, \Sigma, \delta, q_{1}, F)$, where
+
+1. $Q = \{ q_{1} , q_{2} , q_{3}\}$,
+2. $\Sigma = \{0, 1 \}$,
+3. $\delta$ is described as `r newLine()`
+```{r finite-automaton-m1-delta-descript, out.width="20%", echo = FALSE}
+knitr::include_graphics(rep("assets/images/1.6-3-delta.png"))
+```
+4. $q_{1}$ is the start state, and
+5. $F = \{ q_{2} \}$.
+
+
+
+If $A$ is the set of all strings that machine $M_{1}$ accepts, we say that $A$ is the
+***language of machine $M$*** and write $L( M_{1} ) = A$. We say that ***M recognizes A*** or
+that ***M accepts A***.
+
+Because the term *accept* has different meanings when we refer
+to machines accepting strings and machines accepting languages, we prefer the
+term *recognize* for languages in order to avoid confusion.
+
+
+
+
+In our example, let
+
+$$A = \{ w| w \text{ contains at least one 1 and an even number of 0s follow the last 1 }\}.$$
+Then $L(M_{1}) = A$, or equivalently, $M_{1}$ recognizes $A$.
+
+
+
+
+### Formal Definition of Computation
+
+[See p.64](`r book_url`#page=64)
+
+Let M = $(Q, \Sigma, \delta, q_{0}, F)$ be a finite automaton and let $w = w_{1}w_{2} \cdots w_{n}$ be
+a string where each w i is a member of the alphabet $\Sigma$. Then $M$ ***accepts*** $w$ if a
+sequence of states $r_{0},r_{1}, \ldots , r_{n}$ in $Q$ exists with three conditions:
+
+1. $r_{0} = q_{0}$,
+2. $\delta (r_{i}, w_{i+1}) = r_{i+1}$, for $i = 0, \ldots , n − 1$, and
+3. $r_{n} \in F$.
+
+Condition 1 says that the machine starts in the start state. Condition 2 says
+that the machine goes from state to state according to the transition function.
+Condition 3 says that the machine accepts its input if it ends up in an accept
+state. We say that M ***recognizes language*** $A$ if $A = \{ w \mid M \text{ accepts } w\}$.
+
+
+```{definition regular-language, name='Regular Language'}
+A language is called a ***regular language*** if some finite automaton recognizes it.
+```
+
+
+### Designing Finite Automata
+
+
+> Whether it be of automaton or artwork, design is a creative process. As such,
+it cannot be reduced to a simple recipe or formula. However, you might find
+a particular approach helpful when designing various types of automata. That
+is, put *yourself* in the place of the machine you are trying to design and then see
+how you would go about performing the machine's task. Pretending that you are
+the machine is a psychological trick that helps engage your whole mind in the
+design process.
+`r newLine()`
+`r newLine()`
+Let's design a finite automaton using the “reader as automaton” method just
+described. Suppose that you are given some language and want to design a finite
+automaton that recognizes it. Pretending to be the automaton, you receive an
+input string and must determine whether it is a member of the language the
+automaton is supposed to recognize. You get to see the symbols in the string
+one by one. After each symbol, you must decide whether the string seen so far is
+in the language. The reason is that you, like the machine, don't know when the
+end of the string is coming, so you must always be ready with the answer.
+`r newLine()`
+`r newLine()`
+First, in order to make these decisions, you have to figure out what you need
+to remember about the string as you are reading it. Why not simply remember
+all you have seen? Bear in mind that you are pretending to be a finite automaton
+and that this type of machine has only a finite number of states, which means
+a finite memory. Imagine that the input is extremely long—say, from here to
+the moon—so that you could not possibly remember the entire thing. You have
+a finite memory—say, a single sheet of paper—which has a limited storage capacity. Fortunately, for many languages you don't need to remember the entire
+input. You need to remember only certain crucial information. Exactly which
+information is crucial depends on the particular language considered.
+
+See examples:
+
+- [Even and Odd (p.66)](`r book_url`#page=66){target="_blank"}
+- [Substring (p.67)](`r book_url`#page=67){target="_blank"}
+
+
+### The Regular Operations
+
+[See p68](`r book_url`#page=68){target="_blank"}
+
+In arithmetic, the basic objects are numbers and the tools are operations for manipulating them, such as $+$ and $\times$. In the theory of computation, the objects are languages and the tools include operations specifically designed for manipulating them. We define three operations on languages, called the ***regular operations***, and use them to study properties of the regular languages.
+
+
+(ref:reg-ops-union) $A \cup B = \{ x \mid \times \in A \text{ or } \times \in B \}$
+
+(ref:reg-ops-concat) $A \circ B = \{ xy \mid \times \in A \text{ and } y \in B \}$
+
+(ref:reg-ops-star) $A^{*} = \{ x_{1}x_{2} \ldots x_{k} \mid k \geq 0 \text{ and each } x_{i} \in A \}$
+
+```{definition regular-opertions-union-concat-star, name="Regular Operations"}
+Let A and B be languages. We define the regular operations ***union***, ***concatenation***, and ***star*** as follows:
+  
+- **Union**: (ref:reg-ops-union).
+- **Concatenation**: (ref:reg-ops-concat).
+- **Star**: (ref:reg-ops-star).
+```
+
+
+`r newLine()`
+`r newLine()`
+
+- You are already familiar with the union operation. It simply takes all the strings in both A and B and lumps them together into one language.
+- The concatenation operation is a little trickier. It attaches a string from *A* in front of a string from B in all possible ways to get the strings in the new language.
+- The star operation is a bit different from the other two because it applies to a single language rather than to two different languages. That is, the star operation is a ***unary operation*** instead of a ***binary operation***. It works by attaching any number of strings in A together to get a string in the new language. Because “any number” includes 0 as a possibility, the empty string $\varepsilon$ is always a member of A ∗ , no matter what A is.
+
+
+`r newLine()`
+`r newLine()`
+```{example regular-operations-example, name="Regular Operations"}
+Let the alphabet $\Sigma$ be the standard 26 letters $\{a, b, \ldots , z\}$. If $A = \{ good, bad \}$ and $B = \{ boy, girl \}$, then
+
+- $A \cup B = \{ good, bad, boy, girl \}$,
+- $A \circ B = \{ goodboy, goodgirl, badboy, badgirl \}$, and
+- $A^{*}=$ \{ $\varepsilon$ *, good, bad, goodgood, goodbad, badgood, badbad, goodgoodgood, goodgoodbad, goodbadgood, goodbadbad,* $\ldots$ \}.
+```
+`r newLine()`
+`r newLine()`
+
+
+(ref:closed-under-multiplication) Let $N = \{1, 2, 3, \ldots \}$ be the set of natural numbers. When we say that $N$ is *closed under multiplication*, we mean that for any $x$ and $y$ in $N$, the product $x \times y$ also is in $N$.
+
+(ref:closed-under-multiplication)
+In contrast, $N$ is not closed under division, as 1 and 2 are in $N$ but 1/2 is not. Generally speaking, a collection of objects is ***closed*** under some operation if applying that operation to members of the collection returns an object still in the collection.
+
+
+#### The Regular Languages is Closed Under the Union Operation
+
+In other words, if $A_{1}$ and $A_{2}$ are regular languages, so is $A_{1} \cup A_{2}$.
+
+**Proof Idea**: We have regular languages $A_{1}$ and $A_{2}$ and want to show that
+$A_{1} \cup A_{2}$ also is regular. Because $A_{1}$ and $A_{2}$ are regular, we know that some finite
+automaton $M_{1}$ recognizes $A_{1}$ and some finite automaton $M_{2}$ recognizes $A_{2}$. To
+prove that $A_{1} \cup A_{2}$ is regular, we demonstrate a finite automaton, call it $M$, that
+recognizes $A_{1} \cup A_{2}$.
+
+This is a proof by construction. We construct $M$ from $M_{1}$ and $M_{2}$. Machine
+M must accept its input exactly when either $M_{1}$ or $M_{2}$ would accept it in order
+to recognize the union language. It works by simulating both $M_{1}$ and $M_{2}$ and
+accepting if either of the simulations accept.
+
+How can we make machine $M$ simulate $M_{1}$ and $M_{2}$? Perhaps it first simulates
+$M_{1}$ on the input and then simulates $M_{2}$ on the input. But we must be careful
+here! Once the symbols of the input have been read and used to simulate $M_{1}$,
+we can't “rewind the input tape” to try the simulation on $M_{2}$. We need another
+approach.
+
+Pretend that you are $M$. As the input symbols arrive one by one, you simulate
+both $M_{1}$ and $M_{2}$ simultaneously. That way, only one pass through the input is
+necessary. But can you keep track of both simulations with finite memory? All
+you need to remember is the state that each machine would be in if it had read
+up to this point in the input. Therefore, you need to remember a pair of states.
+How many possible pairs are there? If $M_{1}$ has $k_{1}$ states and $M_{2}$ has $k_{2}$ states, the
+number of pairs of states, one from $M_{1}$ and the other from $M_{2}$, is the product
+$k_{1} \times k_{2}$. This product will be the number of states in $M$, one for each pair. The
+transitions of $M$ go from pair to pair, updating the current state for both $M_{1}$ and
+$M_{2}$. The accept states of $M$ are those pairs wherein either $M_{1}$ or $M_{2}$ is in an
+accept state.
+
+
+***PROOF***: [See p.70](`r book_url`#page=70)
+
+
+## Nondeterminism
+
+[See p.71](`r book_url`#page=71)
+
+Nondeterminism is a useful concept that has had great impact on the theory of
+computation. So far in our discussion, every step of a computation follows in a
+unique way from the preceding step. When the machine is in a given state and
+reads the next input symbol, we know what the next state will be—it is determined. We call this ***deterministic*** computation. In a ***nondeterministic*** machine,
+several choices may exist for the next state at any point.
+
+- every deterministic finite automaton is automatically a nondeterministic finite automaton
+- First, every state of a DFA always has exactly one exiting transition arrow for each symbol in the alphabet
+  - NFA, this is not true
+- In an NFA , a state may have zero, one, or many exiting arrows for each alphabet symbol.
+
+Second, in a DFA, labels on the transition arrows are symbols from the alphabet. This NFA has an arrow with the label $\epsilon$. In general, an NFA may have arrows labeled with members of the alphabet or $\epsilon$. Zero, one, or many arrows may exit from each state with the label $\epsilon$.
+
+
+
+
+## Regular Expressions
+
+[See p.87](`r book_url`#page=87)
+
+- A language is said to be a Regular Language if and only if some Finite State Machine recognizes it.
+  - NOT REGULAR is the FSM requires memory, or require the storing of strings
+
+
+## Nonregular Expressions
+
+[See p.101](`r book_url`#page=101)
+
+To understand the power of finite automata, you must also understand their
+limitations.
+
+Example:
+
+- Let's take the language $B = \{ 0^{n}1^{n} \mid n \geq 0 \}$.
+- If we attempt to find a DFA
+that recognizes B, we discover that the machine seems to need to remember
+how many 0s have been seen so far as it reads the input. Because the number of
+0s isn't limited, the machine will have to keep track of an unlimited number of
+possibilities. But it cannot do so with any finite number of states.
+
+but other languages seem to require an unlimited number of
+possibilities, yet actually they are regular. For example, consider two languages
+over the alphabet $\Sigma = \{ 0, 1 \}$:
+
+- $C = \{ w \mid w \text{ has an equal number of 0s and 1s} \}$, and
+- $D = \{ w \mid w \text{ has an equal number of ocurrences of 01 and 10 as substrings} \}$.
+
+At first glance, a recognizing machine appears to need to count in each case,
+and therefore neither language appears to be regular. As expected, $C$ is not
+regular, but surprisingly $D$ is regular!
+
+### The Pumping Lemma for Regular Languages
+
+__Pumping Lemma__: all regular languages have a special property. If we can show that a language does not have this property, we are guaranteed that it is not regular.
+
+
+```{theorem pumping-lemma, name="Pumping Lemma"}
+
+If A is a regular language, then there is a number p (the pumping length) where if s is any string in A of length at least p, then s may be divided into three pieces, s = xyz, satisfying the following conditions:
+  
+1. for each $i \geq 0, xy^{i}z \in A$,
+2. $|y| > 0$, and
+3. $|xy| \leq p$.
+
+```
+
+
+#### To prove that a language is not Regular using PUMPING LEMMA, follow these steps:
+
+__(We prove using Contradiction)__
+
+1. Assume that $A$ is Regular
+2. It has to have a Pumping Length
+3. All strings longer that $P$ can be pumped $|S| \geq P$
+4. Now find a string '$S$' in $A$ such that $|S| \geq P$
+5. Divide $S$ in $xyz$
+6. Show that $xy^{i}x \notin A$ for some $i$
+7. The consider all ways that $S$ can be divided into $xyz$
+8. Show that none of these can satisfy all 3 of the pumping conditions at the same time
+9. $S$ cannot be Pumped == CONTRADICTION
+
+
+
+# Ch.2 - Context-Free Languages
+
+[See p.125](`r book_url`#page=125)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

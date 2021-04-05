@@ -1,0 +1,11 @@
+book_filename: "338-Computer-Science-Theory"
+delete_merged_file: true
+output: bookdown::gitbook
+output_dir: "docs"
+clean: ["docs"]
+before_chapter_script: "_common.R"
+language:
+  ui:
+    chapter_name: "Chapter "
+  label:
+    def: 'Definition '

@@ -1,0 +1,18 @@
+bookdown::gitbook:
+  css: style.css
+  split_by: none
+  number_sections: false
+  config:
+    search: false
+    sharing: false
+    info: false
+    toc:
+      # collapse: subsection
+      collapse: none
+      toc_depth: 4
+      scroll_highlight: true
+      toc_float: true
+      before: |
+        <li><a href="./index.html">Computer Science Theory</a></li>
+      after: |
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
