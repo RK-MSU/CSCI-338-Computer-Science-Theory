@@ -67,3 +67,27 @@ You should use class notes, HW-3,4 and quiz solutions as preparation materials.
 
 I will give a detailed overview early next week.
 
+
+- CFL Basics
+  - Chomsky Normal Form - pg.133
+  - Design CFG's for different CFL's
+  - Definition for ambiguity
+  - CFL = PDA
+- Pumping lemma for CFL pg.149
+- Countability, diagonalization method (pg.226), uncountable
+- TM Basics:
+  - Church-Turing thesis
+  - Decidable languages
+  - Undecidable languages
+  - $CA_{TM}$, $E_{TM}$, $EQ_{TM}$, $E_{LBA}$, $ALL_{CFG}$
+- Reducibility
+
+
+
+### Notes
+
+
+
+
+
+
