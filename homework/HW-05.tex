@@ -1,0 +1,144 @@
+\documentclass[11pt]{article}
+
+%Don't change any thing before \begin{document}
+%In fact if you use sth fancy, you might need
+%to add more packages, or macros.
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{times,psfrag,epsf,epsfig,graphics,graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\setlength{\parskip}{1em}
+
+\title{CSCI 338: Assignment~5~(7 points)}
+\author{River Kelly}
+\date{Tuesday, April 13}
+
+
+\begin{document}
+\maketitle
+
+\newpage
+\section*{Problem 1}
+
+\noindent
+We are given 5 matrices $M_1,...,M_5$, their dimensions (i.e., rows by columns)
+are as follows: 
+$M_1$ is 15 $\times$ 20,
+$M_2$ is 20 $\times$ 30,
+$M_3$ is 30 $\times$ 10,
+$M_4$ is 10 $\times$ 50, and
+$M_5$ is 50 $\times$ 8.
+\newline
+
+\noindent
+(1.1) Run the dynamic programming algorithm for {\em matrix chain multiplication} that we covered in class to produce the table $m[-,-]$.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c c c c c}
+         & 1 & 2 & 3 & 4 & 5 \\
+       \hline
+       1 & 0 & 9000 & 9000 & 165000 & 13600 \\
+       2 & - & 0 & 6000 & 16000 & 11200 \\
+       3 & - & - & 0 & 15000 & 6400 \\
+       4 & - & - & - & 0 & 4000\\
+       5 & - & - & - & - & 0
+    \end{tabular}
+\end{table}
+
+
+\noindent
+(1.2) What is the optimal solution value? Where do you find it? 
+\newline
+
+\noindent
+The optimal solution value is found at at $m\left[1,5\right]$, and is $13600$.
+\newpage
+
+\section*{Problem 2}
+
+\noindent
+We are given a context-free grammar $G$ as follows:
+\newline
+
+$G$: $S\rightarrow AS|SB$
+
+~~~  $A\rightarrow AD|DA|a$
+
+~~~  $B\rightarrow BB|BD|b$
+
+~~~  $D\rightarrow DD|d$.
+
+We are also given a string $w=bdbdd$.
+\newline
+
+\noindent
+(2.1) Run the dynamic programming algorithm for $A_{CFG}$ that we covered in class to produce the table $table[-,-]$.
+\newline
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c c c c c}
+         & 1 & 2 & 3 & 4 & 5 \\
+       \hline
+       1 & B & B & B & B & B \\
+       2 & - & D & $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+       3 & - & - & B & B & B \\
+       4 & - & - & - & D & D \\
+       5 & - & - & - & - & D
+    \end{tabular}
+\end{table}
+
+\noindent
+(2.2) How do we know whether $G$ generates $w$ from the table?
+\newline
+
+\noindent
+The following rule determines whether or not $G$ generates $w$:
+$$ w \in L(G) \Longleftrightarrow S \in table\left[ 1,5 \right]$$
+Since $S \notin table \left[ 1,5 \right]$, we know that $G$ does not generate $w$.
+\newpage
+
+
+\section*{Problem 3}
+
+Show that $ALL_{DFA}\in$ P.
+
+\begin{proof}
+First, recall that $ALL_{DFA}$ accepts $\Sigma^{*}$ if, and only if, all reachable states from the start state are accepting. We will construct a Turning machine to decide for $ALL_{DFA}$.
+
+\noindent
+S = "On input $\left< D \right>$, where $D$ is some DFA:\newline
+1. Preform Breadth First Search on $D$ starting at the start state.\newline
+2. If at any point a non-accepting state is visited, \textit{reject}.\newline
+3. If only accepting states are found, \textit{accept}."\newline
+
+\noindent
+Breadth First Search runs in polynomial time, therefor we have created a decider that runs in $O(n^{k})$ time. Sine $S$ decides $ALL_{DFA}$ as $S$ visits all possible states, and runs in polynomial time, by definition, $ALL_{DFA} \in P$.
+
+\noindent
+$\therefore$ $ALL_{DFA}\in$ P.
+\end{proof}
+
+\newpage
+\section*{Problem 4}
+
+Show that Independent Set $\in$ NP.
+\newline
+\begin{proof}
+We will create a non-deterministic Turning Machine that decides in polynomial time to decide an Independent Set.
+
+\noindent
+S = "On input $\left<G,k\right>$ where $G$ is a graph ($G = (V,E)$), and $k$ is an integer such that $k \leq |V|$\newline
+1. Non-deterministically choose a subset $c$ of $k$ vertices from $G$\newline
+2. Test whether $G$ contains any of the $k \choose 2$ edges connecting nodes in c\newline
+3. If test is true, the an edge $u,v \in c $ in $G$ and \textit{reject}, Otherwise \textit{accept}."
+
+
+\noindent
+$S$ runs in $O({k \choose 2}) = O(n^2)$ time. So we have found a non-deterministic decider that runs in polynomial time. So Independent Set $\in NP$ by Theorem 7.20 
+
+\end{proof}
+\end{document}
+
