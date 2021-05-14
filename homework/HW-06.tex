@@ -1,54 +1,103 @@
 \documentclass[11pt]{article}
 
-%Don't change any thing before \begin{document}
-%In fact if you use sth fancy, you might need
-%to add more packages, or macros.
-\usepackage{amssymb,amsmath}
+\usepackage{amssymb,amsmath,amsthm}
 \usepackage{times,psfrag,epsf,epsfig,graphics,graphicx}
 \usepackage{algorithm}
 \usepackage{algorithmic}
 
-
-\begin{document}
-\date{}
-%\date{Feb 3, 2020}
+\setlength{\parskip}{1em}
 
 \title{CSCI 338: Assignment~6~(7 points)}
+\author{River Kelly}
+\date{Monday, April 19}
 
-%\author{Your Name Here}
-
-
+\begin{document}
 \maketitle
 
-%When writing up your solution, comment out the following until you reach Problem 1.
-\noindent
-This assignment is due on {\bf Monday, April 19, 8:00pm}. It is strongly
-encouraged that you use Latex to generate a single pdf file and upload it
-under {\em Assignment 6} on D2L. But there will NOT be a penalty for not
-using Latex (to finish the assignment). This {\bf could} be a
-group-assignment, and you can form a group of at most 2 people (you must put
-both names on the group assignment and it is enough for one of the 2 students
-to submit it); certainly, you can also finish the assignment all by yourself.
-
+\newpage
 \section*{Problem 1}
 
-Problem 7.9 (page 323).
-\newline
+A \textbf{\textit{triangle}} in an undirected graph is a 3-clique.
+Show that $TRIANGLE \in P$, where $TRIANGLE = \{ \langle G \rangle \mid G$ contains a triangle$\}$.
 
+\begin{proof}
+To prove that $TRIANGLE \in P$, we must construct a Turning Machine $M$ that decides $TRIANGLE$ in polynomial time.
+Let $G$ be a graph with a set of $V$ vertices and a set of $E$ edges such as $G = (V,E)$. 
+The TM will then enumerate all triples $(x,y,z)$ with vertices $x,y,z \in V$ and $x < y < z$.
+Then the TM $M$ will check whether or not all three edges, $(x,y)$, $(y,z)$ and $(z,x)$ exist in $E$. TM $M$ is defines as:\\\\
+M = "On input $\langle G \rangle$, a graph:\\
+\indent 1. For each enumeration $(x,y,z) \in V \times V \times V$ \\
+\indent 2. \indent Test if each edge $(x,y)$, $(y,z)$ and $(z,x) \in E$ \\ \indent \indent If test pass for each enumeration, \textit{accept} \\
+\indent 3. If a triple does not pass the test, \textit{reject}."\\\\
+Enumeration of all triples requires $O(|V|^{3})$ time, and checking whether or not each edge exists in $E$ take $O(|E|)$ time. This would conclude that the overall time complexity is $O(|V|^{3} |E|)$, which is polynomial for input $\langle G \rangle$.\\\\
+Notice that for $TRIANGLE$ a clique has a fixed size of 3, so even though it is an exponent, it is constant. Thus it is bound in time complexity.\\\\
+$\therefore$ Since TM $M$ decides in polynomial time, $TRIANGLE \in P$.
+\end{proof}
+
+\newpage
 \section*{Problem 2}
 
-Problem 7.21 (page 324, SPATH and LPATH).
-\newline
-
+Let $G$ represent an undirected graph. Also let \\\\
+\indent $SPATH = \{ \langle G, a, b, k \rangle \mid G $ contains a simple path of length at most $k$ \\ \indent \indent \indent \indent \indent \indent \indent \indent \indent from $a$ to $b \}$ \\
+and \\ 
+\indent $LPATH = \{ \langle G, a, b, k \rangle \mid G $ contains a simple path of length at least $k$ \\ \indent \indent \indent \indent \indent \indent \indent \indent \indent from $a$ to $b \}$ \\\\
+\textbf{a.)} Show that $SPATH \in P$
+\begin{proof}
+We will construct a TM which recognizes $SPATH$. It will use a modified algorithm of the marking algorithm. The TM is defined as:\\\\
+M = "On input $\langle G, x, y, k \rangle$ where $n$-node graph $G$ has nodes $x$ and $y$:\\
+\indent 1. Mark $x$\\
+\indent 2. Iterate each from $i$ to our mark"\\
+\indent 3. \indent If an edge $(a,b)$ is found connecting $a$ to an unmarked node $c$, mark node $c$ with $i + 1$.\\
+\indent 4. If node $b$'s marked values is at most $k$, \textit{accept}. Otherwise, \textit{reject}."\\\\
+This algorithm runs in polynomial time, therefore $SPATH$ must be in $P$.
+\end{proof}
+\noindent
+\textbf{b.)} Show that $LPATH$ is NP-complete
+\begin{proof}
+First, we will consider the reduction $UHAMPATH \leq_{P} LPATH$. Lets construct a TM $M$ which computes such a reduction. \\\\
+M = "On input $\langle G, x , y \rangle$ where graph $G$ has nodes $x$ and $y$:\\
+\indent 1. Let $k$ represent the number of node in $G$\\
+\indent 2. Output $\langle G, x , y , k \rangle$." \\\\
+$G$ contains a Hamiltonian path of length $k$ from $a$ to $b$ if $\langle G, x , y \rangle \in UHAMPATH$.
+Thus $\langle G, x , y, k \rangle \in LPATH$.\\\\
+If $\langle G, x , y, k \rangle \in LPATH$, then $G$ contains a simple path of length $k$ from $a$ to $b$. $G$ only has $k$ nodes, so the path is Hamiltonian. Thus, $\langle G, x , y \rangle \in UHAMPATH$.\\\\
+Note, $LPATH$ must exist in $NP$ because we can guess a simple path of length at least $k$ from $a$ to $b$ and verify it in polynomial time.\\\\
+$\therefore$ $LPATH$ is NP-complete.
+\end{proof}
+\newpage
 \section*{Problem 3}
+Let $DOUBLE-SAT = \{ \langle \phi \rangle \mid \phi $ has at least two satisfying assignments$\}$.\\\\
+Show that $DOUBLE-SAT$ is NP-complete.
+\begin{proof}
+We will create a non-deterministic polynomial time TM $M$ which can guess two assignments.
+The TM $M$ will accept if both assignments satisfy, showing that $DOUBLE-SAT$ is NP.\\\\
+The polynomial time reduction of $m$:\\\\
+M = "On input $\langle \phi \rangle$, a boolean formula with variables $x_{1},x_{2},\ldots , x_{n}$:\\
+\indent 1. Let $\phi'$ be $\phi \land (x \lor \bar{x})$ where $x$ is a new variable.\\
+\indent 2. Output $\langle \phi' \rangle$."\\\\
+If $\phi \in SAT$, then $\phi'$ has at least two satisfying assignments from the original assignment of $\phi$ by changing the value of $x$.
+If $\phi' \in DOUBLE-SAT$, then $\phi$ is also satisfied because $x$ does not appear in $\phi$.\\\\
+$\therefore$ $\phi \in SAT$ if, and only if, $m(\phi) \in DOUBLE-SAT$.
 
-Problem 7.22 (page 324, Double-SAT).
-\newline
 
+\end{proof}
+\newpage
 \section*{Problem 4}
 
-Problem 7.35 (page 326, Dominating Set).
-
-
+A subset of the nodes of a graph $G$ is a \textbf{\textit{dominating set}} if every other node of $G$ is adjacent to some node in the subset. Let
+$$ DOMINATING-SET = \{ \langle G, k \rangle \mid G \text{ has a dominating set with } k \text{ nodes} \}$$
+Show that it is NP-complete by giving a reduction from $VERTEX-COVER$.
+\begin{proof}
+We first show that $DOMINATING-SET \in NP$ by giving it a nondeterministic decider.\\\\
+$A = $ ``On input $ \langle G, k \rangle $: \\
+\indent 1. Nondeterministically select a subset $V'$ with $|V'| = k$ \\
+\indent 2. For each node $v$ in $ G \setminus V'$ \\
+\indent 3. \indent If there is no edge $ (v, v')$ for any $v' \in V$, \textit{reject} \\
+\indent 4. All nodes tested, \textit{accept}''\\\\
+The above machine is $O(|E|)$, so $DOMINATING-SET \in NP$. We now show, through a reduction of $VERTEX-COVER$, that $DOMINATING-SET$ is a member of NP-complete. Consider the following description of a Turing Machine.\\\\
+For $ \langle G, k \rangle $, an input to VC, we then construct the input to DS. For each edge $(u,v) \in G$, add the node $w_{uv}$ and edges $ (u, w_{uv})$ and $(v, w_{uv})$. Then match the output of DS.\\\\
+Note that the reduction takes only polynomial time with the number of edges in $G$. As far as correctness goes, VC accepts graphs which have subsets of nodes such that each edge contains one of the nodes, while DS accepts graphs where nodes are adjacent. The above TM takes any edge and adds a node in it's place (while keeping the original graph), which would force a DS to contain the new node, and so contain the original edge. The other direction can be shown with the inverse mapping (deleting $w_{uv}$).\\\\
+$\therefore$ $DOMINATING-SET$ is a member of NP and a NP-complete problem can reduce to $DOMINATING-SET$. So $DOMINATING-SET$ must be NP-complete.
+\end{proof}
 \end{document}
 
