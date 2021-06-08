@@ -1,1 +1,2 @@
-# Computer Science Theory
+# CSCI-338 Computer Science Theory
+
